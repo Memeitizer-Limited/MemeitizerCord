@@ -19,10 +19,10 @@ spawnSync("npm run build-prod", join(PROJECT_DIR, "BetterDiscordApp"))
 spawnSync("npm run minify-css", join(PROJECT_DIR, "BetterDiscordApp"))
 /** DiscordJS */
 spawnSync("npm run build", join(PROJECT_DIR, "DiscordJS"))
-/** LightcordApi */
-spawnSync("npm run build", join(PROJECT_DIR, "LightcordApi"))
-spawnSync("npm run build-prod", join(PROJECT_DIR, "LightcordApi"))
-spawnSync("tsc", join(PROJECT_DIR, "LightcordApi"))
+/** MemeitizerCordApi */
+spawnSync("npm run build", join(PROJECT_DIR, "MemeitizerCordApi"))
+spawnSync("npm run build-prod", join(PROJECT_DIR, "MemeitizerCordApi"))
+spawnSync("tsc", join(PROJECT_DIR, "MemeitizerCordApi"))
 
 var exitedWithErrorProcessList = [];
 

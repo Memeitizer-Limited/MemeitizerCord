@@ -49,7 +49,7 @@ ipc.on("RELOAD", () => {
 })
 ipc.on("NEW_TAB", () => {
     chrtabs.addTab({
-        title: 'Lightcord',
+        title: 'MemeitizerCord',
         favicon: faviconURL
     })
 })
@@ -87,7 +87,7 @@ window.onload = () => {
     })
     tabs.addEventListener('tabAdd', ({detail}) => {
         chromeTabs.updateTab(detail.tabEl, {
-            title: "Lightcord Loading...",
+            title: "MemeitizerCord Loading...",
             favicon: faviconURL
         })
         let webview = document.createElement("webview")
@@ -138,7 +138,7 @@ window.onload = () => {
         if(event.ctrlKey){
             if(event.key === 't'){
                 chromeTabs.addTab({
-                  title: 'Lightcord',
+                  title: 'MemeitizerCord',
                   favicon: faviconURL
                 })
             }else if(event.key === "w"){
@@ -150,7 +150,7 @@ window.onload = () => {
     })
     setImmediate(() => {
         chromeTabs.addTab({
-          title: 'Lightcord Loading...',
+          title: 'MemeitizerCord Loading...',
           favicon: faviconURL
         })
     })

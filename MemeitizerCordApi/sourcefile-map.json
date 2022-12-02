@@ -1,0 +1,6 @@
+[
+    {
+      "pattern": "^memeitizercordapi/src",
+      "replace": "https://github.com/Memeitizer-Limited/MemeitizerCord/blob/master/MemeitizerCordApi/src"
+    }
+  ]

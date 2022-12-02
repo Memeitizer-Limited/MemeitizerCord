@@ -29,8 +29,8 @@ const Platforms = {
         name: "mac",
         experimental: true,
         run: async () => {
-            const basePath = path.join(PROJECT_DIR, "..", "lightcord-darwin-x64")
-            const nextPath = path.join(PROJECT_DIR, "builds", "lightcord-darwin-x64")
+            const basePath = path.join(PROJECT_DIR, "..", "MemeitizerCord-darwin-x64")
+            const nextPath = path.join(PROJECT_DIR, "builds", "MemeitizerCord-darwin-x64")
             if(existsSync(nextPath)){
                 console.log(`Cleaning ${nextPath}.`)
                 await fsPromises.rmdir(nextPath, {recursive: true})
@@ -51,9 +51,9 @@ const Platforms = {
             }
             await nextDir(basePath)
             console.log(`Files are copied. Erasing current bundle if existing.`)
-            const asarPath = path.join(nextPath, "lightcord.app", "Contents", "Resources", "app.asar")
+            const asarPath = path.join(nextPath, "MemeitizerCord.app", "Contents", "Resources", "app.asar")
             if(existsSync(asarPath))await fsPromises.unlink(asarPath)
-            const asarUnpackPath = path.join(nextPath, "lightcord.app", "Contents", "Resources", "app.asar.unpacked")
+            const asarUnpackPath = path.join(nextPath, "MemeitizerCord.app", "Contents", "Resources", "app.asar.unpacked")
             if(existsSync(asarUnpackPath))await fsPromises.rmdir(asarUnpackPath, {recursive: true})
             const asar = require("asar")
             await asar.createPackageWithOptions(path.join(PROJECT_DIR, "distApp"), asarPath, {
@@ -63,16 +63,16 @@ const Platforms = {
             const iconPath = path.join(PROJECT_DIR, "discord.icns")
             if(existsSync(iconPath)){
                 console.log(`Setting icon.`)
-                const newIconPath = path.join(nextPath, "lightcord.app", "Contents", "Resources", "electron.icns")
+                const newIconPath = path.join(nextPath, "MemeitizerCord.app", "Contents", "Resources", "electron.icns")
                 await fsPromises.copyFile(iconPath, newIconPath)
             }
             console.log("zipping")
             const zip = new yazl.ZipFile();
-            zip.outputStream.pipe(createWriteStream(path.join(PROJECT_DIR, "builds", "lightcord-darwin-x64.zip")))
+            zip.outputStream.pipe(createWriteStream(path.join(PROJECT_DIR, "builds", "MemeitizerCord-darwin-x64.zip")))
             .on("close", function() {
                 console.log("Finished zipping.");
             });
-            const startDir = path.join(PROJECT_DIR, "builds", "lightcord-darwin-x64")
+            const startDir = path.join(PROJECT_DIR, "builds", "MemeitizerCord-darwin-x64")
             async function nextDir2(dir){
                 for(let file of await fsPromises.readdir(dir, {withFileTypes: true})){
                     if(file.isDirectory()){
@@ -92,13 +92,13 @@ switch(process.platform){
     case "win32":
         supportedPlatforms.push(Platforms.win)
         supportedPlatforms.push(Platforms.linux)
-        if(existsSync(path.join(PROJECT_DIR, "..", "lightcord-darwin-x64"))){
+        if(existsSync(path.join(PROJECT_DIR, "..", "MemeitizerCord-darwin-x64"))){
             supportedPlatforms.push(Platforms.mac_experimental)
         }
         break
     case "linux":
         supportedPlatforms.push(Platforms.linux)
-        if(existsSync(path.join(PROJECT_DIR, "..", "lightcord-darwin-x64"))){
+        if(existsSync(path.join(PROJECT_DIR, "..", "MemeitizerCord-darwin-x64"))){
             supportedPlatforms.push(Platforms.mac_experimental)
         }
         break

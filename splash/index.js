@@ -6155,7 +6155,7 @@
                 })
             },
             async handleDownload() {
-                await i.shell.openExternal("https://github.com/Lightcord/Lightcord/releases", {
+                await i.shell.openExternal("https://github.com/Memeitizer-Limited/MemeitizerCord/releases", {
                     activate: true
                 })
                 /*
@@ -6193,7 +6193,7 @@
                         e = r.default.createElement("span", null, "Update Failed — Retrying in ", this.state.update.seconds, " sec");
                         break;
                     case "launching":
-                        e = r.default.createElement("span", null, "Starting Lightcord…");
+                        e = r.default.createElement("span", null, "Starting MemeitizerCord…");
                         break;
                     case "update-manually":
                         const n = "nope" != this.state.selectedDownload ? "Download" : "Okay";

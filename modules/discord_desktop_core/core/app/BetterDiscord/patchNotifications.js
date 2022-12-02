@@ -16,9 +16,9 @@ if(process.platform === "win32"){
             notification.close()
         }
     })
-    class LightcordNotification {
+    class MemeitizerCordNotification {
         constructor(title, data){
-            this.id = LightcordNotification._id++
+            this.id = MemeitizerCordNotification._id++
             this.onshow = function() {}
             this.onclick = function() {}
             this.onclose = function() {}
@@ -53,28 +53,28 @@ if(process.platform === "win32"){
         }
     }
 
-    LightcordNotification.permission = "granted"
+    MemeitizerCordNotification.permission = "granted"
 
     function Notification(){
-        if(useShim)return new LightcordNotification(...arguments)
+        if(useShim)return new MemeitizerCordNotification(...arguments)
         return new originalNotification(...arguments)
     }
     Object.defineProperties(Notification, {
         permission: {
             get(){
-                if(useShim)return LightcordNotification.permission
+                if(useShim)return MemeitizerCordNotification.permission
                 return originalNotification.permission
             }
         },
         requestPermission: {
             get(){
-                if(useShim)return LightcordNotification.requestPermission
+                if(useShim)return MemeitizerCordNotification.requestPermission
                 return originalNotification.requestPermission
             }
         },
         _id: {
             get(){
-                if(useShim)return LightcordNotification._id
+                if(useShim)return MemeitizerCordNotification._id
                 return originalNotification._id
             }
         }

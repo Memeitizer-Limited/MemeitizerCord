@@ -1,1 +1,1 @@
-module.exports = require("@lightcord/api")
+module.exports = require("@memeitizercord/api")

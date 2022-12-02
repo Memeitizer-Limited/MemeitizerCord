@@ -19,8 +19,8 @@ const moduleAlias = require("./BetterDiscord/loaders/module-alias")
 const path = require("path")
 
 moduleAlias.setMain(module)
-moduleAlias.addAlias("@lightcord/api", path.join(__dirname, "../../../../LightcordApi"))
-moduleAlias.addAlias("lightcordapi", path.join(__dirname, "../../../../LightcordApi"))
+moduleAlias.addAlias("@memeitizercord/api", path.join(__dirname, "../../../../MemeitizerCordApi"))
+moduleAlias.addAlias("memeitizercordapi", path.join(__dirname, "../../../../MemeitizerCordApi"))
 moduleAlias.addPath(path.join(__dirname, "BetterDiscord", "modules"))
 
 const DiscordNative = {
@@ -56,8 +56,8 @@ process.once('loaded', () => {
   // ensures native module `require` context has access to DiscordNative
   global.DiscordNative = DiscordNative;
 
-  const buildInfo = electron.ipcRenderer.sendSync("LIGHTCORD_GET_BUILD_INFOS")
-  console.log("%c%s", "color: #3767ad;font-size:25px", 'Lightcord Client\nhttps://github.com/Lightcord/Lightcord');
+  const buildInfo = electron.ipcRenderer.sendSync("MEMEITIZERCORD_GET_BUILD_INFOS")
+  console.log("%c%s", "color: #3767ad;font-size:25px", 'MemeitizerCord Client\nhttps://github.com/Memeitizer-Limited/MemeitizerCord');
   console.log("%c%s", "font-size:15px", `Version: ${buildInfo.version}\nCommit: ${buildInfo.commit || "Unknown"}`)
 
 

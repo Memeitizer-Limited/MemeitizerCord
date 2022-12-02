@@ -39,7 +39,7 @@ function getWindow() {
 }
 
 var _default = [{
-  label: 'Lightcord',
+  label: 'MemeitizerCord',
   submenu: [{
     label: 'About Discord',
     selector: 'orderFrontStandardAboutPanel:'
@@ -57,7 +57,7 @@ var _default = [{
     label: 'Services',
     submenu: []
   }, SEPARATOR, {
-    label: 'Hide Lightcord',
+    label: 'Hide MemeitizerCord',
     selector: 'hide:',
     accelerator: 'Command+H'
   }, {

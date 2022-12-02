@@ -35,11 +35,11 @@ fs.readdirSync(MODULES_DIRNAME, {withFileTypes: true})
 const MODULE_DIRNAME = path.join(PROJECT_DIR, "modules", "discord_desktop_core", "core")
 const BETTERDISCORD_DIRNAME = path.join(PROJECT_DIR, "BetterDiscordApp")
 const DISCORDJS_DIRNAME = path.join(PROJECT_DIR, "DiscordJS")
-const LIGHTCORDAPI_DIRNAME = path.join(PROJECT_DIR, "LightcordApi")
+const MEMEITIZERCORDAPI_DIRNAME = path.join(PROJECT_DIR, "MemeitizerCordApi")
 
 spawnNpmInstallProcess(MODULE_DIRNAME)
 spawnNpmInstallProcess(BETTERDISCORD_DIRNAME)
-spawnNpmInstallProcess(LIGHTCORDAPI_DIRNAME)
+spawnNpmInstallProcess(MEMEITIZERCORDAPI_DIRNAME)
 spawnNpmInstallProcess(DISCORDJS_DIRNAME)
 
 process.on("beforeExit", () => {

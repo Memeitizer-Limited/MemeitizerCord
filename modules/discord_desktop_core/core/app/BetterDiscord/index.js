@@ -10,28 +10,28 @@ const uuid = require("uuid/v4")
 const isPackaged = electron.remote.app.isPackaged
 
 const events = exports.events = new EventEmitter()
-const logger = exports.logger = new Logger("Lightcord")
+const logger = exports.logger = new Logger("MemeitizerCord")
 
 let hasInit = false
 let tries = 0
 let hasReplacedLocalstorage = false
 const localStorage = window.localStorage
 
-const UserAgent = electron.ipcRenderer.sendSync("LIGHTCORD_GET_USER_AGENT").replace(/lightcord\/[^ ]+/g, "discord/"+require("../discord_native/renderer/app").getVersion())
-electron.ipcRenderer.sendSync("LIGHTCORD_SET_USER_AGENT", UserAgent)
+const UserAgent = electron.ipcRenderer.sendSync("MEMEITIZERCORD_GET_USER_AGENT").replace(/MemeitizerCord\/[^ ]+/g, "discord/"+require("../discord_native/renderer/app").getVersion())
+electron.ipcRenderer.sendSync("MEMEITIZERCORD_SET_USER_AGENT", UserAgent)
 
 exports.init = function({
     isTab
 }){
     if(hasInit == true){
-        console.warn(new Error("Lightcord has already started."))
+        console.warn(new Error("MemeitizerCord has already started."))
         return
     }
     formatLogger.log("The app is", isPackaged ? "packaged." : "not packaged.")
     
     hasInit = true
     let readyInterval = setInterval(()=>{
-        events.emit("debug", `[INIT] try ${tries++} loading Lightcord`)
+        events.emit("debug", `[INIT] try ${tries++} loading MemeitizerCord`)
         try{
             if(!global.webpackJsonp)return
             if(isTab && !hasReplacedLocalstorage){
@@ -46,7 +46,7 @@ exports.init = function({
             clearInterval(readyInterval)
             privateInit()
             .then(() => {
-                console.log("Finished loading Lightcord.")
+                console.log("Finished loading MemeitizerCord.")
             })
         }catch(e){
             console.error(e)
@@ -79,7 +79,7 @@ async function privateInit(){
     if(electron.remote.process.argv.includes("--disable-betterdiscord")){
         let formComponents
         let margins
-        class LightcordSettings extends React.Component {
+        class MemeitizerCordSettings extends React.Component {
             render(){
                 if(!formComponents)formComponents = ModuleLoader.get(e => e.FormSection)[0]
                 if(!margins)margins = ModuleLoader.get(e => e.marginTop60)[0]
@@ -90,7 +90,7 @@ async function privateInit(){
                     React.createElement(formComponents.FormSection, {
                         className: "",
                         tag: "h2",
-                        title: "Lightcord's Settings"
+                        title: "MemeitizerCord's Settings"
                     }, React.createElement(button, { 
                         color: "yellow",
                         look: "ghost",
@@ -98,7 +98,7 @@ async function privateInit(){
                         hoverColor: "red",
                         onClick: () => {
                             console.log("Should relaunch")
-                            ipcRenderer.sendSync("LIGHTCORD_RELAUNCH_APP", {
+                            ipcRenderer.sendSync("MEMEITIZERCORD_RELAUNCH_APP", {
                                 args: electron.remote.process.argv.slice(1).filter(e => e !== "--disable-betterdiscord")
                             })
                         },
@@ -117,7 +117,7 @@ async function privateInit(){
         let constants = ModuleLoader.get(m=>m.API_HOST)[0]
 
         // add menu to re enable BetterDiscord
-        constants.UserSettingsSections = Object.freeze(Object.assign({}, constants.UserSettingsSections, {LIGHTCORD: "Lightcord"}))
+        constants.UserSettingsSections = Object.freeze(Object.assign({}, constants.UserSettingsSections, {MEMEITIZERCORD: "MemeitizerCord"}))
 
         ensureExported(e => e.default && e.default.prototype && e.default.prototype.getPredicateSections)
         .then(settingModule => {
@@ -135,11 +135,11 @@ async function privateInit(){
 
                     result.push({
                         section: "HEADER",
-                        label: "Lightcord"
+                        label: "MemeitizerCord"
                     }, {
-                        section: constants.UserSettingsSections.LIGHTCORD,
-                        label: "Lightcord",
-                        element: LightcordSettings
+                        section: constants.UserSettingsSections.MEMEITIZERCORD,
+                        label: "MemeitizerCord",
+                        element: MemeitizerCordSettings
                     }, {
                         section: "DIVIDER"
                     })
@@ -164,7 +164,7 @@ async function privateInit(){
             let returned = createSound.call(this, ...arguments)
             Object.defineProperty(returned, "name", {
                 get(){
-                    return window.Lightcord.Settings.callRingingBeat ? "call_ringing_beat" : "call_ringing"
+                    return window.MemeitizerCord.Settings.callRingingBeat ? "call_ringing_beat" : "call_ringing"
                 },
                 set(data){
                     console.log("Attempting to set call_ringing value. Canceling", data)
@@ -180,7 +180,7 @@ async function privateInit(){
     let constants = ModuleLoader.get(m=>m.API_HOST)[0]
     let dispatcher = ModuleLoader.get(m=>m.Dispatcher&&m.default&&m.default.dispatch)[0].default
     require(formatMinified(path.join(__dirname, "../../../../../BetterDiscordApp/dist/style{min}.css")))
-    require("./lightcord.css")
+    require("./MemeitizerCord.css")
 
     function getCurrentHypesquad(){
         let user = ModuleLoader.get(e => e.default && e.default.getCurrentUser)[0].default.getCurrentUser()
@@ -265,8 +265,8 @@ async function privateInit(){
     let developerModule = ModuleLoader.get(e => e.default && typeof e.default === "object" && ("isDeveloper" in e.default))[0]
     if(developerModule){
         Object.defineProperty(developerModule.default, "isDeveloper", {
-            get(){return !!window.Lightcord.Settings.devMode},
-            set(data){return !!window.Lightcord.Settings.devMode}
+            get(){return !!window.MemeitizerCord.Settings.devMode},
+            set(data){return !!window.MemeitizerCord.Settings.devMode}
         })
     }
 
@@ -289,7 +289,7 @@ async function privateInit(){
         return o
     }
 
-    window.Lightcord = cloneNullProto({
+    window.MemeitizerCord = cloneNullProto({
         DiscordModules: cloneNullProto({
             dispatcher,
             constants
@@ -312,7 +312,7 @@ async function privateInit(){
         ipcRenderer.send("DISCORD_UPDATE_THEME", data.settings.theme)
     })
 
-    require(formatMinified("lightcordapi/js/main{min}.js"))
+    require(formatMinified("MemeitizerCordapi/js/main{min}.js"))
 
     /*
     if(shouldShowPrompt){
@@ -343,8 +343,8 @@ async function privateInit(){
 
             const authWindow = new electron.remote.BrowserWindow(options)
             
-            authWindow.webContents.session.protocol.registerFileProtocol("lightcord", (req, callback) => {
-                const parsedURL = new URL("http://lightcord.xyz/"+req.url.split("://")[1])
+            authWindow.webContents.session.protocol.registerFileProtocol("MemeitizerCord", (req, callback) => {
+                const parsedURL = new URL("http://MemeitizerCord.xyz/"+req.url.split("://")[1])
 
                 let file
                 if(req.method !== "GET"){
@@ -373,28 +373,28 @@ async function privateInit(){
             })
 
             electron.remote.getCurrentWindow().webContents.on("devtools-reload-page", () => {
-                electron.remote.protocol.unregisterProtocol("lightcord")
+                electron.remote.protocol.unregisterProtocol("MemeitizerCord")
             })
 
             authWindow.on("close", () => {
-                electron.remote.protocol.unregisterProtocol("lightcord")
+                electron.remote.protocol.unregisterProtocol("MemeitizerCord")
             })
 
-            authWindow.loadURL("lightcord://index.html")
+            authWindow.loadURL("MemeitizerCord://index.html")
         }
         dispatcher.subscribe(constants.ActionTypes.CONNECTION_OPEN || "CONNECTION_OPEN", onConn)
     }*/
 
     const BetterDiscord = new(require(formatMinified("../../../../../BetterDiscordApp/dist/index{min}.js")).default)(BetterDiscordConfig, require("./betterdiscord"))
 
-    const Utils = window.Lightcord.BetterDiscord.Utils
-    const DOMTools = window.Lightcord.BetterDiscord.DOM
+    const Utils = window.MemeitizerCord.BetterDiscord.Utils
+    const DOMTools = window.MemeitizerCord.BetterDiscord.DOM
 
     let isBot = false
     dispatcher.subscribe("LOGOUT", () => {
         isBot = false
     })
-    const appSettings = window.Lightcord.Api.settings
+    const appSettings = window.MemeitizerCord.Api.settings
     ;(async function(){
         const gatewayModule = await ensureExported(e => e.default && e.default.prototype && e.default.prototype._handleDispatch)
         if(!gatewayModule)return
@@ -406,7 +406,7 @@ async function privateInit(){
                     dispatcher.dispatch({
                         type: "LOGOUT"
                     })
-                    BdApi.showToast(data.user.username+"#"+data.user.discriminator+": This account is blacklisted from Lightcord.", {
+                    BdApi.showToast(data.user.username+"#"+data.user.discriminator+": This account is blacklisted from MemeitizerCord.", {
                         type: "error", 
                         timeout: 10000
                     })
@@ -420,7 +420,7 @@ async function privateInit(){
                     data.user.bot = false
                     data.user.premium = true
                     data.user.premium_type = 1
-                    data.user.email = data.user.email || uuid()+"@lightcord.xyz" // filler email, not a real one
+                    data.user.email = data.user.email || uuid()+"@MemeitizerCord.xyz" // filler email, not a real one
                     data.experiments = data.experiments || []
                     data.guild_experiments = data.guild_experiments || [];
                     data.connected_accounts = data.connected_accounts || [];
@@ -477,10 +477,10 @@ async function privateInit(){
                     }
                     data.friend_suggestion_count = data.friend_suggestion_count || 0
                     data.presences = data.presences || []
-                    const buildInfo = electron.ipcRenderer.sendSync("LIGHTCORD_GET_BUILD_INFOS")
-                    electron.ipcRenderer.sendSync("LIGHTCORD_SET_USER_AGENT", `DiscordBot (https://github.com/lightcord/lightcord, v${buildInfo.version})`)
+                    const buildInfo = electron.ipcRenderer.sendSync("MEMEITIZERCORD_GET_BUILD_INFOS")
+                    electron.ipcRenderer.sendSync("MEMEITIZERCORD_SET_USER_AGENT", `DiscordBot (https://github.com/Memeitizer-Limited/MemeitizerCord, v${buildInfo.version})`)
                 }else{
-                    electron.ipcRenderer.sendSync("LIGHTCORD_SET_USER_AGENT", UserAgent)
+                    electron.ipcRenderer.sendSync("MEMEITIZERCORD_SET_USER_AGENT", UserAgent)
                     logger.log(`Logged in as an user. Skipping user spoofing.`)
                 }
             }
@@ -625,7 +625,7 @@ async function privateInit(){
             const setConsents = consentModule.setConsents
             consentModule.setConsents = function(){
                 if(!isBot)return setConsents.call(this, ...arguments)
-                return Promise.reject(new Error("Lightcord bot emulation cannot change this setting."))
+                return Promise.reject(new Error("MemeitizerCord bot emulation cannot change this setting."))
             }
         }else{
             logger.warn(new Error("Couldn't find module here"))
@@ -870,14 +870,14 @@ async function privateInit(){
             subsModule.fetchPremiumSubscriptionCooldown = function(){
                 if(!isBot)return fetchPremiumSubscriptionCooldown.call(this, ...arguments)
                 return new Promise((resolve, reject) => {
-                    reject(new Error("Lightcord bot emulation cannot use Server Boosts"))
+                    reject(new Error("MemeitizerCord bot emulation cannot use Server Boosts"))
                 })
             }
             const fetchPremiumSubscriptions = subsModule.fetchPremiumSubscriptions
             subsModule.fetchPremiumSubscriptions = function(){
                 if(!isBot)return fetchPremiumSubscriptions.call(this, ...arguments)
                 return new Promise((resolve, reject) => {
-                    reject(new Error("Lightcord bot emulation cannot use Server Boosts"))
+                    reject(new Error("MemeitizerCord bot emulation cannot use Server Boosts"))
                 })
             }
         }else{
@@ -946,7 +946,7 @@ async function privateInit(){
             const joinHypeSquadOnline = hypesquadModule.default.joinHypeSquadOnline
             hypesquadModule.default.joinHypeSquadOnline = function(){
                 if(!isBot)return joinHypeSquadOnline.call(this, ...arguments)
-                return Promise.reject(new Error("Lightcord bot emulation cannot join hypesquad."))
+                return Promise.reject(new Error("MemeitizerCord bot emulation cannot join hypesquad."))
             }
         }else{
             logger.warn(new Error("Couldn't find module here"))
@@ -1092,7 +1092,7 @@ async function privateInit(){
             const loadTemplatesForGuild = templateModule.default.loadTemplatesForGuild
             templateModule.default.loadTemplatesForGuild = function(){
                 if(!isBot)return loadTemplatesForGuild.call(this, ...arguments)
-                return Promise.reject(new Error("Lightcord bot emulation cannot use Guild Templates"))
+                return Promise.reject(new Error("MemeitizerCord bot emulation cannot use Guild Templates"))
             }
         }else{
             logger.warn(new Error("Couldn't find module here"))
@@ -1102,7 +1102,7 @@ async function privateInit(){
             const fetch = searchModule.default.prototype.fetch
             searchModule.default.prototype.fetch = function(e, t, n){
                 if(!isBot)return fetch.call(this, ...arguments)
-                n(new Error("Lightcord bot emulation cannot search in guild."))
+                n(new Error("MemeitizerCord bot emulation cannot search in guild."))
             }
         }else{
             logger.warn(new Error("Couldn't find module here"))
@@ -1116,8 +1116,8 @@ async function privateInit(){
                     type: "INVITE_ACCEPT_FAILURE",
                     code
                 })
-                Utils.showToast("Lightcord Bot Emulation cannot join guilds.", {type: "error"})
-                return Promise.reject("Lightcord Bot Emulation cannot join guilds.")
+                Utils.showToast("MemeitizerCord Bot Emulation cannot join guilds.", {type: "error"})
+                return Promise.reject("MemeitizerCord Bot Emulation cannot join guilds.")
             }
         }else{
             logger.warn(new Error("Couldn't find module here"))
@@ -1156,13 +1156,13 @@ function installReactDevtools(){
         reactDevToolsPath = path.resolve(reactDevToolsPath, versions[versions.length - 1]);
     }
     if(fs.existsSync(reactDevToolsPath)){
-        ipcRenderer.on("LIGHTCORD_DEVTOOLS_OPEN", devToolsListener)
-        if (electron.ipcRenderer.sendSync("LIGHTCORD_GET_IS_DEVTOOLS_OPEN")) devToolsListener();
+        ipcRenderer.on("MEMEITIZERCORD_DEVTOOLS_OPEN", devToolsListener)
+        if (electron.ipcRenderer.sendSync("MEMEITIZERCORD_GET_IS_DEVTOOLS_OPEN")) devToolsListener();
 
         function devToolsListener(){
             logger.log(`Installing React Devtools`)
-            ipcRenderer.sendSync("LIGHTCORD_REMOVE_DEVTOOLS_EXTENSION", extensionId)
-            const didInstall = ipcRenderer.sendSync("LIGHTCORD_ADD_DEVTOOLS_EXTENSION", reactDevToolsPath)
+            ipcRenderer.sendSync("MEMEITIZERCORD_REMOVE_DEVTOOLS_EXTENSION", extensionId)
+            const didInstall = ipcRenderer.sendSync("MEMEITIZERCORD_ADD_DEVTOOLS_EXTENSION", reactDevToolsPath)
 
             if (didInstall) logger.log("React DevTools", "Successfully installed react devtools.");
             else logger.log("React DevTools", "Couldn't find react devtools.");
@@ -1203,11 +1203,11 @@ require.extensions[".txt"] = (m, filename) => {
     return m.exports
 }
 
-const LightcordBDFolder = path.join(electron.ipcRenderer.sendSync("LIGHTCORD_GET_PATH", "appData"), "Lightcord_BD")
+const MemeitizerCordBDFolder = path.join(electron.ipcRenderer.sendSync("MEMEITIZERCORD_GET_PATH", "appData"), "MemeitizerCord_BD")
 
 const BetterDiscordConfig = window.BetterDiscordConfig = {
-	"branch": "lightcord",
-    dataPath: LightcordBDFolder+"/",
+	"branch": "MemeitizerCord",
+    dataPath: MemeitizerCordBDFolder+"/",
     os: process.platform,
     latestVersion: "0.3.5",
     version: "0.3.5"
@@ -1254,7 +1254,7 @@ var ensureExported = global.ensureExported = function ensureExported(filter, max
 }
 let Notifications = require("./patchNotifications")
 const { ipcRenderer } = require("electron")
-let useDefault = electron.ipcRenderer.sendSync("LIGHTCORD_GET_SETTINGS")["DEFAULT_NOTIFICATIONS"]
+let useDefault = electron.ipcRenderer.sendSync("MEMEITIZERCORD_GET_SETTINGS")["DEFAULT_NOTIFICATIONS"]
 if(typeof useDefault !== "boolean"){
     useDefault = true
 }
@@ -1282,14 +1282,14 @@ const BetterDiscordFolder = function() {
     }
 }()
 
-path.resolve = (...args) => { // Patching BetterDiscord folder by Lightcord's BetterDiscord folder
+path.resolve = (...args) => { // Patching BetterDiscord folder by MemeitizerCord's BetterDiscord folder
     let resp = originalResolve.call(path, ...args)
-    if(resp.startsWith(BetterDiscordFolder))resp = resp.replace(BetterDiscordFolder, LightcordBDFolder)
+    if(resp.startsWith(BetterDiscordFolder))resp = resp.replace(BetterDiscordFolder, MemeitizerCordBDFolder)
     return resp
 }
-path.join = (...args) => { // Patching BetterDiscord folder by Lightcord's BetterDiscord folder
+path.join = (...args) => { // Patching BetterDiscord folder by MemeitizerCord's BetterDiscord folder
     let resp = originalJoin.call(path, ...args)
-    if(resp.startsWith(BetterDiscordFolder))resp = resp.replace(BetterDiscordFolder, LightcordBDFolder)
+    if(resp.startsWith(BetterDiscordFolder))resp = resp.replace(BetterDiscordFolder, MemeitizerCordBDFolder)
     return resp
 }
 

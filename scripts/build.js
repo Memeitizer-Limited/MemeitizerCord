@@ -184,19 +184,19 @@ async function main(){
         console.info(`Copied files and minified them from ${path.join(PROJECT_DIR, "modules")}.`)
     })
 
-    await processNextDir(path.join(PROJECT_DIR, "LightcordApi"), {
-        startDir: path.join(PROJECT_DIR, "LightcordApi"),
-        newDir: path.join(PROJECT_DIR, "distApp", "LightcordApi"),
+    await processNextDir(path.join(PROJECT_DIR, "MemeitizerCordApi"), {
+        startDir: path.join(PROJECT_DIR, "MemeitizerCordApi"),
+        newDir: path.join(PROJECT_DIR, "distApp", "MemeitizerCordApi"),
         exclude: /(src|webpack\.config\.js|tsconfig\.json|dist|docs)/g
     }, ((filepath) => filepath.endsWith(".js") && (!production ? !filepath.includes("node_modules") : true)), async (filepath, newpath) => {
         await fs.promises.copyFile(filepath, newpath)
     }, true).then(() => {
-        console.info(`Copied files and minified them from ${path.join(PROJECT_DIR, "LightcordApi")}.`)
+        console.info(`Copied files and minified them from ${path.join(PROJECT_DIR, "MemeitizerCordApi")}.`)
     })
     
     child_process.execSync("npm install --only=prod", {
         encoding: "binary",
-        cwd: path.join(PROJECT_DIR, "distApp", "LightcordApi"),
+        cwd: path.join(PROJECT_DIR, "distApp", "MemeitizerCordApi"),
         stdio: "inherit"
     })
 

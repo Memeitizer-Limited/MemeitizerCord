@@ -323,7 +323,7 @@ function setupNotificationScreen(mainWindow) {
   if (!notificationScreen.hasInit) {
     notificationScreen.init({
       mainWindow,
-      title: 'Lightcord Notifications',
+      title: 'MemeitizerCord Notifications',
       maxVisible: 5,
       screenPosition: 'bottom'
     });
@@ -428,7 +428,7 @@ function launchMainAppWindow(isVisible) {
    * @type {Electron.BrowserWindowConstructorOptions}
    */
   const mainWindowOptions = {
-    title: 'Lightcord',
+    title: 'MemeitizerCord',
     width: DEFAULT_WIDTH,
     height: DEFAULT_HEIGHT,
     minWidth: MIN_WIDTH,
@@ -598,8 +598,8 @@ function launchMainAppWindow(isVisible) {
 
     e.preventDefault();
 
-    if (!title.endsWith('Lightcord')) {
-      title += ' - Lightcord';
+    if (!title.endsWith('MemeitizerCord')) {
+      title += ' - MemeitizerCord';
     }
 
     mainWindow.setTitle(title);
