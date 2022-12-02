@@ -13,7 +13,7 @@ function capitalizeFirstLetter(s) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-export const APP_NAME = 'Lightcord' + (releaseChannel === 'stable' ? '' : capitalizeFirstLetter(releaseChannel));
+export const APP_NAME = 'MemeitizerCord' + (releaseChannel === 'stable' ? '' : capitalizeFirstLetter(releaseChannel));
 const APP_ID_BASE = 'com.squirrel';
 export const APP_ID = `${APP_ID_BASE}.${APP_NAME}.${APP_NAME}`;
 

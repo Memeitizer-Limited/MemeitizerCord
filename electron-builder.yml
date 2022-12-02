@@ -1,7 +1,7 @@
 ---
-appId: com.squirrel.Lightcord.Lightcord
-productName: Lightcord
-remoteBuild: false
+appId: com.squirrel.MemeitizerCord.MemeitizerCord
+productName: MemeitizerCord
+remoteBuild: true
 directories:
   app: distApp
   output: builds
@@ -17,7 +17,7 @@ win:
     arch:
     - ia32
   icon: discord.ico
-  publisherName: Lightcord
+  publisherName: Hayden Drysdale (Memeitizer)
   files:
   - "**/*"
   - "!**/*.ts"

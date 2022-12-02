@@ -66,7 +66,7 @@ function hasArgvFlag(flag) {
 				target: process.execPath,
 			}
 			electron.shell.writeShortcutLink(
-				join(homedir(), "Desktop", "Lightcord.lnk"),
+				join(homedir(), "Desktop", "MemeitizerCord.lnk"),
 				"create",
 				options
 			);
@@ -77,7 +77,7 @@ function hasArgvFlag(flag) {
 					"Windows",
 					"Start Menu",
 					"Programs",
-					"Lightcord.lnk"
+					"MemeitizerCord.lnk"
 				),
 				"create",
 				options
@@ -89,7 +89,7 @@ function hasArgvFlag(flag) {
 		}
 	}
 
-	console.log(`Initializing Lightcord.`);
+	console.log(`Initializing MemeitizerCord.`);
 	console.log(`Version: ${buildInfo.version}
 releaseChannel: ${buildInfo.releaseChannel}
 commit: ${buildInfo.commit}`);
@@ -108,7 +108,7 @@ commit: ${buildInfo.commit}`);
 	if (!allowMultipleInstances) {
 		electron.app.on("second-instance", (_event, args, _workingDirectory) => {
 			if(args && args[1] === "--overlay-host"){
-				// this is a patch for Lightcord that focus itself when the user is playing a game.
+				// this is a patch for MemeitizerCord that focus itself when the user is playing a game.
 				//console.warn("OVERLAY HOST DÉTECTÉ. EVENNEMENT IGNORÉ MAIS POURRAIT CAUSER UN PROBLÈME.")
 				return;
 			}

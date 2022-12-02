@@ -1,7 +1,7 @@
 import autoLaunch from "auto-launch"
 
 const autoStart = new autoLaunch({
-    name: "Lightcord"
+    name: "MemeitizerCord"
 })
 
 export default {

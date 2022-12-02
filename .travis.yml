@@ -34,9 +34,9 @@ jobs:
 #        api_key: "$GH_TOKEN"
 #        cleanup: false
 #        file:
-#          - builds/lightcord-win32-ia32.zip
-#          - builds/lightcord-win32.exe
-#          - builds/lightcord-linux-x64.zip
-#          - builds/lightcord-darwin.zip
+#          - builds/memeitizercord-win32-ia32.zip
+#          - builds/memeitizercord-win32.exe
+#          - builds/memeitizercord-linux-x64.zip
+#          - builds/memeitizercord-darwin.zip
 #        on:
 #          tags: true

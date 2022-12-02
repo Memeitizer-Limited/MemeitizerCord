@@ -1,5 +1,5 @@
 {
-  "name": "lightcord",
+  "name": "memeitizercord",
   "version": "0.1.9",
   "description": "A simple - customizable - Discord Client.",
   "main": "dist/index.js",
@@ -20,7 +20,7 @@
     "versions": "echo Electron: && electron -v && echo Typescript: && tsc -v",
     "ci": "node scripts/ci-deploy"
   },
-  "author": "JeanOUINA",
+  "author": "Hayden Drysdale (Memeitizer)",
   "license": "MIT",
   "dependencies": {
     "auto-launch": "^5.0.5",

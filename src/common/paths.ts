@@ -14,7 +14,7 @@ function determineAppUserDataRoot() {
 }
 
 function determineUserData(userDataRoot, buildInfo) {
-  return path.join(userDataRoot, 'Lightcord');
+  return path.join(userDataRoot, 'MemeitizerCord');
 }
 
 // cleans old version data in the background
